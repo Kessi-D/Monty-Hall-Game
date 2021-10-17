@@ -1,21 +1,55 @@
 const doorOne = document.getElementById("d1");
 const doorTwo = document.getElementById("d2");
 const doorThree= document.getElementById("d2");
+const carHolder = Math.floor(Math.random()*3);
+let winnerDoor;
+
+window.addEventListener("DOMContentLoaded",()=>{
+    //Get all the doors
+    const doors = document.querySelectorAll(".door");
+
+    //Loop through all the doors
+    doors.forEach((door,index)=>{
+        
+        door.addEventListener("click",(evt)=>{
+           //If door is clicked find the currently opened door and remove the open class
+            let openedDoor  = document.querySelector(".door.opened");
+            console.log("OpenedDorr",openedDoor);
+            if(openedDoor){
+                openedDoor.classList.remove("opened");
+            }
+            //Only open the door again if the door wasn't previously opened
+            let currentTappedDoor = evt.currentTarget;
+            if(currentTappedDoor != openedDoor){
+                currentTappedDoor.classList.add("opened");
+                selectADoor(currentTappedDoor,index);
+            }
+        });
+
+        let hiddenImage = document.getElementById(`${index}`);
+        if (index == carHolder) {
+            hiddenImage.innerHTML += `<img src="https://img.icons8.com/color/144/000000/car--v2.png"class="car"/>`;
+            winnerDoor = door;
+            // listContainer.appendChild(liList);
+        }else{
+            hiddenImage.innerHTML += `<img src="https://play-lh.googleusercontent.com/8QnH9AhsRfhPott7REiFUXXJLRIxi8KMAP0mFAZpYgd44OTOCtScwXeb5oPe1E4eP4oF"class="car"/>`;
+        };
+
+    });
+})
+
+
 
 // const behindDoorTwo = document.getElementById("1");
 // const behindDoorThree = document.getElementById("2");
 
-const carHolder = Math.floor(Math.random()*3);
-const selectedBehindDoor = document.getElementById(carHolder.toString());
-
-
 //  console.log(carHolder);   
+
+const selectedBehindDoor = document.getElementById(carHolder);
  console.log(selectedBehindDoor); 
 function selectDoors(index){
-    const carHolder = Math.floor(Math.random()*3);
-    const selectedBehindDoor = document.getElementById(carHolder);
     
-   
+    
     var doors = [0,1,2];
     var index = doors[index];
     
@@ -35,6 +69,38 @@ function selectDoors(index){
         // console.log(index)
         
     }
+}
+
+
+function selectADoor(door,index){
+    setTimeout(()=>{
+        if(door == winnerDoor){
+            alert("Congratulations you have selected the correct door");
+            removeEverything();
+        }else{
+            if(confirm("Wrong door, Do you want to switch")){
+                //remove the door
+                door.remove();
+                //Remove the image behind the door
+                console.log('index',index);
+                const imageBehindDoor = document.getElementById(index);
+                imageBehindDoor?.remove();
+            }else{
+                alert("Game Oveeer !!!");
+                removeEverything();
+            }
+        }
+    },100);
+}
+
+function removeEverything(){
+    const doors = document.querySelector(".doors");
+    doors?.remove();
+}
+
+
+function replay(){
+    window.location.reload();
 }
 
    

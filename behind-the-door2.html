@@ -7,32 +7,38 @@
     <title>Door_Games</title>
   </head>
   <body>
-    <button onclick = "selectDoors()">CLICK</button>
+    <button onclick = "replay()">Replay</button>
+
     <div class="doors">
-      <div id="0"></div>
-
-      <div class="door" id="d1">
-        <div class="rectangle"></div>
-        <div class="rectangle1"></div>
-
-        <!-- <div class="door_knob"></div> -->
+      
+      <div class="door-container">
+        <div id="0" class="hidden-image"></div>
+        <div class="door" id="d1">
+          <div class="rectangle"></div>
+          <div class="rectangle1"></div>
+        </div>
       </div>
-      <div id="1"></div>
-
-      <div class="door" id="d2">
-        <div class="rectangle"></div>
-        <div class="rectangle1"></div>
-        <!-- <div class="door_knob"></div> -->
+      
+      <div class="door-container">
+        <div id="1" class="hidden-image"></div>
+        <div class="door" id="d2">
+          <div class="rectangle"></div>
+          <div class="rectangle1"></div>
+          <!-- <div class="door_knob"></div> -->
+        </div>
       </div>
-
-      <div id="2"></div>
-
-      <div class="door" id="d3">
-        <div class="rectangle"></div>
-        <div class="rectangle1"></div>
-        <!-- <div class="door_knob"></div> -->
+     
+      <div class="door-container">
+        <div id="2" class="hidden-image"></div>
+        <div class="door" id="d3">
+          <div class="rectangle"></div>
+          <div class="rectangle1"></div>
+          <!-- <div class="door_knob"></div> -->
+        </div>
       </div>
+      
     </div>
+
     <div id="display_result"></div>
 
     <script src="behind_door_games.js"></script>
@@ -41,8 +47,14 @@
         box-sizing: border-box;
         margin: 0;
       }
+
+      /* *:not(:empty){
+        transform-style: preserve-3d;
+      } */
+
       body {
         /* height: 100vh; */
+        perspective: 100px;
       }
       #instruction {
         display: flex;
@@ -60,7 +72,33 @@
         left: 200px;
         top: 100px;
         background-color: bisque;
+        perspective: 1500px;
       }
+      .door{
+        position: relative;
+      }
+      .door-container{
+        position: relative;
+        transform-style:preserve-3d;
+      }
+      .hidden-image{
+        position: absolute;
+        width: 100px;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        /* opacity: 0; */
+      }
+
+      .hidden-image img{
+        opacity: 1;
+        width: 100%;
+      }
+
+      .door.opened{
+        transform: rotateY(-140deg);
+      }
+
       #d1,
       #d2,
       #d3 {
@@ -107,13 +145,11 @@
         z-index: 0;
       }
       .car {
-        position: absolute;
+        /* position: absolute;
         top: 190px;
-        right: 62px;
+        right: 62px; */
       }
-      #d1:hover {
-        transform: rotateY(-140deg);
-      }
+      
       #d1,
       #d2,
       #d3 {
@@ -124,12 +160,12 @@
         display: block;
       }
 
-      #d2:hover {
+      /* #d2:hover {
         transform: rotateY(-140deg);
       }
       #d3:hover {
         transform: rotateY(-140deg);
-      }
+      } */
       /* .door_knob{
             background: url("https://img.icons8.com/ios-filled/50/000000/door-handle.png");
         }

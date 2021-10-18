@@ -1,7 +1,9 @@
+const doorOne = document.getElementById("d1");
+const doorTwo = document.getElementById("d2");
+const doorThree= document.getElementById("d2");
 const carHolder = Math.floor(Math.random()*3);
 let winnerDoor;
 
-//Wait for the DOM to be fully loaded
 window.addEventListener("DOMContentLoaded",()=>{
     //Get all the doors
     const doors = document.querySelectorAll(".door");
@@ -12,51 +14,66 @@ window.addEventListener("DOMContentLoaded",()=>{
         door.addEventListener("click",(evt)=>{
            //If door is clicked find the currently opened door and remove the open class
             let openedDoor  = document.querySelector(".door.opened");
-           
-            //If there is an opened
+            console.log("OpenedDorr",openedDoor);
             if(openedDoor){
                 openedDoor.classList.remove("opened");
             }
             //Only open the door again if the door wasn't previously opened
             let currentTappedDoor = evt.currentTarget;
-
-            //If the clicked door not is already opened
             if(currentTappedDoor != openedDoor){
-                //Open it
                 currentTappedDoor.classList.add("opened");
-                //check if the right door was pressed
                 selectADoor(currentTappedDoor,index);
             }
         });
 
-        //Get the element that will hold the image
         let hiddenImage = document.getElementById(`${index}`);
-
-        //If the index is equal to that which holds the car
         if (index == carHolder) {
-            //Insert the car image into the tag
             hiddenImage.innerHTML += `<img src="https://img.icons8.com/color/144/000000/car--v2.png"class="car"/>`;
-            
-            //Mark this as the winner door
             winnerDoor = door;
             // listContainer.appendChild(liList);
         }else{
-            //Insert the goat into the tag
             hiddenImage.innerHTML += `<img src="https://play-lh.googleusercontent.com/8QnH9AhsRfhPott7REiFUXXJLRIxi8KMAP0mFAZpYgd44OTOCtScwXeb5oPe1E4eP4oF"class="car"/>`;
         };
 
     });
 })
 
-/**
- * Shows messages when the right door is pressed
- * @param {*} door the door object
- * @param {*} index the current index of doors
- */
-function selectADoor(door,index){
 
+
+// const behindDoorTwo = document.getElementById("1");
+// const behindDoorThree = document.getElementById("2");
+
+//  console.log(carHolder);   
+
+const selectedBehindDoor = document.getElementById(carHolder);
+ console.log(selectedBehindDoor); 
+function selectDoors(index){
+    
+    
+    var doors = [0,1,2];
+    var index = doors[index];
+    
+    
+    //   const liList = document.createElement("li");
+    //   liList.innerHTML = arr[i] + `<button onclick="Edit">X</button>`;
+    //   liList.className = "sublist";
+    //   listContainer.appendChild(liList);
+   
+    for (let i=0; i<doors.length; i++){
+        selectedBehindDoor.innerHTML = doors[i];
+        if ((index = carHolder)) {
+          selectedBehindDoor.innerHTML += `<img src="https://img.icons8.com/color/144/000000/car--v2.png"class="car"/>`;
+          // listContainer.appendChild(liList);
+        };
+        // console.log(selectedBehindDoor)
+        // console.log(index)
+        
+    }
+}
+
+
+function selectADoor(door,index){
     setTimeout(()=>{
-        //check if the door is the winner door
         if(door == winnerDoor){
             alert("Congratulations you have selected the correct door");
             removeEverything();
@@ -65,6 +82,7 @@ function selectADoor(door,index){
                 //remove the door
                 door.remove();
                 //Remove the image behind the door
+                console.log('index',index);
                 const imageBehindDoor = document.getElementById(index);
                 imageBehindDoor?.remove();
             }else{
@@ -75,20 +93,28 @@ function selectADoor(door,index){
     },100);
 }
 
-/**
- * Remove all the doors from the DOM
- */
 function removeEverything(){
     const doors = document.querySelector(".doors");
     doors?.remove();
 }
 
-/**
- * Refresh the page
- */
+
 function replay(){
     window.location.reload();
 }
+
+   
+
+// function selectDoors() {
+//   return Math.floor(Math.random() * (max - min + 1) ) + min;
+
+// console.log(selectDoors())
+//  console.log(index);
+
+
+
+
+
 
 
 
